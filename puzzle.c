@@ -8,21 +8,26 @@ Sudoku *create_sudoku(Square ***squares, Box **boxes) {
     return sudoku;
 }
 
-int **create_puzzle() {
+int **read_puzzle(char path[15]) {
     int **puzzle = NULL;
     int i = 0;
     int j = 0;
-    int array[9][9] = {0, 1, 9,      0, 0, 2,     0, 0, 0,
-                       4, 7, 0,      6, 9, 0,     0, 0, 1,
-                       0, 0, 0,      4, 0, 0,     0, 9, 0,
-
-                       8, 9, 4,      5, 0, 7,     0, 0, 0,
-                       0, 0, 0,      0, 0, 0,     0, 0, 0,
-                       0, 0, 0,      2, 0, 1,     9, 5, 8,
-
-                       0, 5, 0,      0, 0, 6,     0, 0, 0,
-                       6, 0, 0,      0, 2, 8,     0, 7, 9,
-                       0, 0, 0,      1, 0, 0,     8, 6, 0 };
+    if (path == NULL) {
+        printf("Path is null\n");
+        return NULL;
+    }
+    FILE *fp = fopen(path, "r");
+    if (fp == NULL) {
+        printf("Failed to open file\n");
+        return NULL;
+    }
+    int array[9][9] = {0};
+    for (i = 0; i < 9; i++) {
+        fscanf(fp, "%d %d %d %d %d %d %d %d %d\n", &array[i][0], &array[i][1], &array[i][2], &array[i][3],
+               &array[i][4], &array[i][5], &array[i][6], &array[i][7], &array[i][8]);
+    }
+    fclose(fp);
+    fp = NULL;
     puzzle = (int **) malloc(sizeof(int *) * 9);
     for (i = 0; i < 9; i++) {
         puzzle[i] = (int *) malloc(sizeof(int) * 9);

@@ -29,7 +29,7 @@ typedef struct Square {
     int column;
 } Square;
 
-int **create_puzzle();
+int **read_puzzle(char path[15]);
 void print_puzzle(Square ***puzzle);
 Sudoku *setup_board(int **puzzle);
 Sudoku *create_sudoku(Square ***squares, Box **boxes);

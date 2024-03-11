@@ -6,7 +6,14 @@ int main() {
     int **puzzle = NULL;
     int progress = 0;
     Sudoku *sudoku = NULL;
-    puzzle = create_puzzle();
+    printf("Enter file name:\n");
+    char path[15];
+    scanf("%14s", path);
+    puzzle = read_puzzle(path);
+    if (puzzle == NULL) {
+        printf("Failed to read puzzle\n");
+        return 0;
+    }
     sudoku = setup_board(puzzle);
     print_puzzle(sudoku->squares);
     while (unsolved > 0) {
